@@ -52,8 +52,6 @@
 	</style>
 </head>
 <body onload="onload()">
-	<a href="http://soft.vsochina.com/admin.php?r=software/download/download&amp;guid={11AE440C-AD71-470A-888F-8025AF77E284}" 
-        target="_blank" class="d-load-btn pull-left">下载</a>
 	<div class="title">少女前线远征模拟器</div>
 	<div class="tips">点击列名可进行排序
 		<span class="alreadychoose" id="alreadychoose" data-choose="">
@@ -184,16 +182,13 @@
 		</div>
 	</div>
 	<script>
-	function onload(){
-		
+	function onload(){		
 		loaddata();
-
 		var n=logi.length;
 		$(".choose").append("<option value='n'>--请选择--</option>")
 		for(var i=0;i<n;i++){
 			$(".choose").append("<option value='"+i+"'>"+logi[i][0]+"</option>");
 		}
-
 	}
 
 	function loaddata(){
@@ -218,7 +213,6 @@
 			}else{
 				other1=other.substr(0,1);
 				other2=other.substr(1,1);
-				//alert(other1);alert(other2);
 				strappend="<tr id='line"+i+"' class='line' data-img='"+other+"'><td class='name'>"+name+"</td><td>"+manpower+"</td><td>"+ammunition+"</td><td>"+rations+"</td><td>"+spareparts+"</td><td><img src='images/"+other1+".png'><img src='images/"+other2+".png'></td><td>"+time+"</td><td>"+all+"</td><td>"+(manpower/realtime).toFixed(2)+"</td><td>"+(ammunition/realtime).toFixed(2)+"</td><td>"+(rations/realtime).toFixed(2)+"</td><td>"+(spareparts/realtime).toFixed(2)+"</td><td class='name'>"+(all/realtime).toFixed(2)+"</td></tr>"	
 			}
 			$("#tbleft").append(strappend);
@@ -254,7 +248,6 @@
 	$(".sort").on("click",function(){
 		var index=$("#tbtitle th").index(this);
 		var strnew="";
-
 		var sortArray = new Array;
 		var n;
 
@@ -267,7 +260,7 @@
 			tArray=[n,thisstandard];
 			sortArray[n]=tArray;
 		});
-		//alert(sortArray);
+
 		for(var i=0;i<logi.length-1;i++){			//直接排序
 			var maxline=i;
 			for(var j=i;j<logi.length;j++){				
@@ -282,17 +275,13 @@
 				sortArray[maxline]=tempArray;
 			}
 		}
-		//alert("排序数组长度:"+sortArray.length);
-		//alert("原数组长度："+logi.length);
+
 		for(var i=0;i<logi.length;i++){
 			var lineindex="line"+sortArray[i][0];
 			strnew=strnew+$("#"+lineindex).prop("outerHTML");
 		}
 		$("#tbleft .line").remove();
 		$("#tbleft").append(strnew);
-		//strnew=$("#tbtitle").prop("outerHTML")+strnew;
-		//$("#tbleft").html(strnew);
-
 	});
 
 	$("#reflash").click(function(){
@@ -303,7 +292,6 @@
 	$(".choosepic").click(function(){
 		var already=$("#alreadychoose").data("choose");			//	已选择中已存在的值
 		var thisadd=$(this).data("pic");						//	选中图片的值
-
 
 		//选择界面变化功能
 		if(already==""){
@@ -341,7 +329,6 @@
 				$(this).hide();
 			}
 		});
-
 	});
 
 	$("#deletepic").click(function(){
