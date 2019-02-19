@@ -1,0 +1,362 @@
+<!doctype html>
+<html>
+<head>
+	<title>远征模拟器</title>
+	<!--Girls Frontline logistics Simulator 
+		copyright by Himesens(1044958467@qq.com)
+		contact:468878959(QQ Group)
+	-->
+	<meta charset="utf-8">
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/logi.js"></script>
+	<style>
+	table{
+		border-collapse: collapse;
+	}
+	td,th{
+		padding: 4px;
+		text-align: center;
+		font-size: 20px;
+		border:1px solid black;
+	}
+	img{
+		width:32px;
+		height:32px;
+	}
+	.select{
+		margin-top:15px;
+	}
+	.title{
+		width:100%;
+		font-size: 30px;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	.content{
+		margin-left: 5%;
+	}
+	.tips{
+		margin-left:6%;
+		margin-top:5px;
+		margin-bottom:15px;
+		font-size: 18px;
+		font-weight: bold; 
+	}
+
+	.alreadychoose{
+		display: inline-block;
+		width:200px;
+		margin-left:32%;
+		vertical-align:bottom;
+	}
+	</style>
+</head>
+<body onload="onload()">
+	<a href="http://soft.vsochina.com/admin.php?r=software/download/download&amp;guid={11AE440C-AD71-470A-888F-8025AF77E284}" 
+        target="_blank" class="d-load-btn pull-left">下载</a>
+	<div class="title">少女前线远征模拟器</div>
+	<div class="tips">点击列名可进行排序
+		<span class="alreadychoose" id="alreadychoose" data-choose="">
+			<input type="button" value="X" id="deletepic" style="vertical-align:bottom;">
+		</span>
+		<span class="chooseother">
+			选择掉落道具：
+			<img src="images/1.png" class="choosepic" data-pic="1">
+			<img src="images/2.png" class="choosepic" data-pic="2">
+			<img src="images/3.png" class="choosepic" data-pic="3">
+			<img src="images/4.png" class="choosepic" data-pic="4">
+			<img src="images/5.png" class="choosepic" data-pic="5">
+		</span>
+	</div>
+	<div class="content">
+		<div class="left">
+			<table id="tbleft">
+				<tr id="tbtitle">
+					<th id="reflash">关卡</th>
+					<th class="sort">人力</th>
+					<th class="sort">弹药</th>
+					<th class="sort">口粮</th>
+					<th class="sort">零件</th>
+					<th>其它</th>
+					<th>时间</th>
+					<th class="sort">折合总资源</th>
+					<th class="sort">单位时间人力</th>
+					<th class="sort">单位时间弹药</th>
+					<th class="sort">单位时间口粮</th>
+					<th class="sort">单位时间零件</th>
+					<th class="sort">单位时间总资源</th>
+				</tr>
+			</table>
+		</div>
+		<div class="select">
+			<table id="tbselect">
+				<tr>
+					<th>关卡</th>
+					<th>人力</th>
+					<th>弹药</th>
+					<th>口粮</th>
+					<th>零件</th>
+					<th>其它</th>
+					<th>时间</th>
+					<th>折合总资源</th>
+					<th>单位时间人力</th>
+					<th>单位时间弹药</th>
+					<th>单位时间口粮</th>
+					<th>单位时间零件</th>
+					<th>单位时间总资源</th>
+				</tr>
+				<tr id="select1">
+					<td><select class="choose"></select></td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td></td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr id="select2">
+					<td><select class="choose"></select></td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td></td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr id="select3">
+					<td><select class="choose"></select></td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td></td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr id="select4">
+					<td><select class="choose"></select></td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td></td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr id="select5">
+					<td>合计</td>
+					<td id="totalmp">0</td>
+					<td id="totalam">0</td>
+					<td id="totalra">0</td>
+					<td id="totalsp">0</td>
+					<td></td>
+					<td></td>
+					<td id="totalall">0</td>
+					<td id="totalpermp">0</td>
+					<td id="totalperam">0</td>
+					<td id="totalperra">0</td>
+					<td id="totalpersp">0</td>
+					<td id="totalperall">0</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<script>
+	function onload(){
+		
+		loaddata();
+
+		var n=logi.length;
+		$(".choose").append("<option value='n'>--请选择--</option>")
+		for(var i=0;i<n;i++){
+			$(".choose").append("<option value='"+i+"'>"+logi[i][0]+"</option>");
+		}
+
+	}
+
+	function loaddata(){
+		var strappend;
+		var n=logi.length;
+		var name,manpower,ammunition,rations,spareparts,other,time,all,other1,other2,realtime;
+		for(var i=0;i<n;i++){
+			name=logi[i][0];
+			manpower=logi[i][1];
+			ammunition=logi[i][2];
+			rations=logi[i][3];
+			spareparts=logi[i][4];
+			other=logi[i][5];
+			time=logi[i][6];
+			all=manpower+ammunition+rations+3*spareparts;
+			realtime=parseInt((time.split(":"))[0])*1+(time.split(":"))[1]/60;
+			
+			if(other=="0"){
+				strappend="<tr id='line"+i+"' class='line' data-img='"+other+"'><td class='name'>"+name+"</td><td>"+manpower+"</td><td>"+ammunition+"</td><td>"+rations+"</td><td>"+spareparts+"</td><td></td><td>"+time+"</td><td>"+all+"</td><td>"+(manpower/realtime).toFixed(2)+"</td><td>"+(ammunition/realtime).toFixed(2)+"</td><td>"+(rations/realtime).toFixed(2)+"</td><td>"+(spareparts/realtime).toFixed(2)+"</td><td class='name'>"+(all/realtime).toFixed(2)+"</td></tr>"	
+			}else if(other.length=="1"){
+				strappend="<tr id='line"+i+"' class='line' data-img='"+other+"'><td class='name'>"+name+"</td><td>"+manpower+"</td><td>"+ammunition+"</td><td>"+rations+"</td><td>"+spareparts+"</td><td><img src='images/"+other+".png'></td><td>"+time+"</td><td>"+all+"</td><td>"+(manpower/realtime).toFixed(2)+"</td><td>"+(ammunition/realtime).toFixed(2)+"</td><td>"+(rations/realtime).toFixed(2)+"</td><td>"+(spareparts/realtime).toFixed(2)+"</td><td class='name'>"+(all/realtime).toFixed(2)+"</td></tr>"	
+			}else{
+				other1=other.substr(0,1);
+				other2=other.substr(1,1);
+				//alert(other1);alert(other2);
+				strappend="<tr id='line"+i+"' class='line' data-img='"+other+"'><td class='name'>"+name+"</td><td>"+manpower+"</td><td>"+ammunition+"</td><td>"+rations+"</td><td>"+spareparts+"</td><td><img src='images/"+other1+".png'><img src='images/"+other2+".png'></td><td>"+time+"</td><td>"+all+"</td><td>"+(manpower/realtime).toFixed(2)+"</td><td>"+(ammunition/realtime).toFixed(2)+"</td><td>"+(rations/realtime).toFixed(2)+"</td><td>"+(spareparts/realtime).toFixed(2)+"</td><td class='name'>"+(all/realtime).toFixed(2)+"</td></tr>"	
+			}
+			$("#tbleft").append(strappend);
+			var index="line"+i;
+			if(all/realtime>=500){
+				$("#"+index+" .name").css("background-color","red");
+			}else if(all/realtime>=400&&all/realtime<500){
+				$("#"+index+" .name").css("background-color","#ff8c1a");
+			}else if(all/realtime>=300&&all/realtime<400){
+				$("#"+index+" .name").css("background-color","#ffd599");
+			}
+		}
+	}
+
+	$(".choose").change(function(){
+		$(this).parent().siblings().remove();
+		var chooseindex=$(this).val();
+		//alert(chooseindex);
+		var copy=$("#line"+chooseindex).html();
+		//alert(copy);
+		$(this).parent().parent().append(copy);
+		$(this).parent().next().remove();
+
+		for(var i=1;i<13;i++){
+			if(i==5||i==6){
+				continue;
+			}else{
+				$("#select5").children("td").eq(i).html(($("#select1").children("td").eq(i).html()*1+$("#select2").children("td").eq(i).html()*1+$("#select3").children("td").eq(i).html()*1+$("#select4").children("td").eq(i).html()*1).toFixed(0));
+			}
+		}
+	});
+
+	$(".sort").on("click",function(){
+		var index=$("#tbtitle th").index(this);
+		var strnew="";
+
+		var sortArray = new Array;
+		var n;
+
+		$(".line").each(function(){			//建立排序数组
+			var thisstandard=$(this).children().eq(index).html();
+			var strn=$(this).attr("id");
+			n=parseInt(strn.substring(4,strn.length));
+			//alert(thisstandard);
+			var tArray=new Array;
+			tArray=[n,thisstandard];
+			sortArray[n]=tArray;
+		});
+		//alert(sortArray);
+		for(var i=0;i<logi.length-1;i++){			//直接排序
+			var maxline=i;
+			for(var j=i;j<logi.length;j++){				
+				if(parseFloat(sortArray[maxline][1])<parseFloat(sortArray[j][1])){
+					maxline=j;
+				}
+			}
+			if(maxline!=i){
+				var tempArray=new Array;
+				tempArray=sortArray[i];
+				sortArray[i]=sortArray[maxline];
+				sortArray[maxline]=tempArray;
+			}
+		}
+		//alert("排序数组长度:"+sortArray.length);
+		//alert("原数组长度："+logi.length);
+		for(var i=0;i<logi.length;i++){
+			var lineindex="line"+sortArray[i][0];
+			strnew=strnew+$("#"+lineindex).prop("outerHTML");
+		}
+		$("#tbleft .line").remove();
+		$("#tbleft").append(strnew);
+		//strnew=$("#tbtitle").prop("outerHTML")+strnew;
+		//$("#tbleft").html(strnew);
+
+	});
+
+	$("#reflash").click(function(){
+		$("#tbleft .line").remove();
+		loaddata();
+	});
+
+	$(".choosepic").click(function(){
+		var already=$("#alreadychoose").data("choose");			//	已选择中已存在的值
+		var thisadd=$(this).data("pic");						//	选中图片的值
+
+
+		//选择界面变化功能
+		if(already==""){
+			$("#alreadychoose").data("choose",thisadd);
+			var prependstr="<img src='images/"+thisadd+".png'";		
+			$("#alreadychoose").prepend("<img src='images/"+thisadd+".png'>");
+		}else{
+			var already=already+"";
+			if(already.length==1){
+				if(already==thisadd){
+					return;
+				}
+			}else{
+				chooseArray=already.split(",");
+				for(var i=0;i<chooseArray.length;i++){
+					if(chooseArray[i]==thisadd){
+						return;
+						//已经存在图片时，退出程序
+					}
+				}
+			}
+			var newalready=already+","+thisadd;
+			$("#alreadychoose").data("choose",newalready);		
+			$("#alreadychoose").prepend("<img src='images/"+thisadd+".png'>")
+		}
+
+		//表格变化功能
+		var strpic="";
+		$(".line").each(function(){
+			var datapic=$(this).data("img")+"";
+			thisadd=thisadd+"";
+			if(datapic.indexOf(thisadd)!=-1){
+				//alert("cunzai!")
+			}else{
+				$(this).hide();
+			}
+		});
+
+	});
+
+	$("#deletepic").click(function(){
+		$("#alreadychoose img").remove();
+		$("#alreadychoose").data("choose","");
+		$(".line").show();
+	});
+	</script>
+</body>
+</html>
+
+<!--
+	2018-02-12
+	v1.10
+	增加了数量排序及重置页面功能。
+
+
+-->
